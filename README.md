@@ -1,6 +1,8 @@
 # PCTO
 Progetto realizzato nel 2020, al fine di gestire i PCTO effettuati dagli studenti appartenenti ad una scuola.
 
+Per visualizzare il progetto: http://127.0.0.1/project/Index/login.html dopo aver attivato XAMPP
+
 Obiettivo: creazione di una piattaforma la quale permetta:
   login tramite email e password da parte degli utenti già registrati
   registrazione del nome, cognome, email, password per i nuovi utenti
