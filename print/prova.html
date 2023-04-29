@@ -1,0 +1,99 @@
+<?php
+session_start();
+if(empty($_SESSION["email"])) 
+           echo "<script type='text/javascript'>
+		   var richiesta = window.alert('Non disponibile senza login');
+		   window.location='http://localhost/project/index/login.html';
+		   </script>";
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div style="float: left">
+		<br>
+	    <a href="http://localhost/project/print/page.php?" title="Home"><img src="img/home.png" width="25px" height="25px"></a>
+	    <br>
+        <a href="http://localhost/project/print/page.php?" title="Torna indietro"><img src="img/arrow_back.png" width="25px" height="25px"></a>
+	    <br>
+	    <a href="http://localhost/project/edit/studente/i_studente.php" title="Modifica alunno"><img src="img/modifica.png" width="25px" height="25px"></a>
+	    <br>
+	<a href="http://localhost/project/edit/studente/i_studente.php" title="Esci"><img src="img/log_out.png" width="25px" height="25px"></a>
+    </div> 
+	<center>
+	<div style="float: center">
+		<h1> STUDENTI </h1>
+    	<form method="GET" action="stampa_cerca_al.php">
+    		<input type="textarea" placeholder="Nome" name="Nome">
+    		<input type="textarea" placeholder="Cognome" name="Cognome">
+    		<input type="textarea" placeholder="Matricola" name="Matricola">
+    		<input type="textarea" placeholder="Classe" name="Classe">
+    		<input type="textarea" placeholder="Valore Max Ore" name="Ore">
+    		<input type="submit"   value="Cerca" name="cerca">
+    		<input type="reset"    value="Azzera filtri" name="annulla">
+    	</form>
+    <br>
+    
+	<?php
+	$mysqli = new mysqli("127.0.0.1","root","","pcto") or die(mysqli_error($mysqli));
+
+	   $sql = "SELECT studente.Matricola, studente.Cognome, studente.Nome, studente.Classe, 
+	          studente.Cod_Fiscale, studente.Data_Nascita, studente.OrePCTO, corso.OreC, corso.DataEsame
+	          FROM corso RIGHT JOIN studente ON studente.Matricola = corso.Matricola WHERE 1 ORDER BY studente.Matricola";
+	    $result = $mysqli->query($sql);
+	    echo "<center>";
+	    echo "<table border ='0' width='75%'>
+	            <tr>
+	                <th width='100'>MATRICOLA</th>
+	                <th width='100'>COGNOME</th>
+	                <th width='100'>NOME</th>
+	                <th width='100'>CLASSE</th>
+	                <th width='100'>CODICE FISCALE</th>
+	                <th width='100'>DATA DI NASCITA</th>
+	                <th width='100'>ORE PCTO</th>
+	                <th width='100'>CORSO SICUREZZA</th>
+	            <tr>";
+	    //$m = '';
+
+	    while($row = $result->fetch_assoc())
+	    {
+	    	
+	    	echo "<tr>";
+	    	echo "<td style='border-bottom: 1px solid #000000' align='center'>" . "<center>" . $row['Matricola'] . "</td>";
+	    	echo "<td style='border-bottom: 1px solid #000000' align='center'>" . "<center>" . $row['Cognome'] . "</td>";
+	    	echo "<td style='border-bottom: 1px solid #000000' align='center'>" . "<center>" . $row['Nome'] . "</td>";
+	    	echo "<td style='border-bottom: 1px solid #000000' align='center'>" . "<center>" . $row['Classe'] . "</td>";
+	    	echo "<td style='border-bottom: 1px solid #000000' align='center'>" . "<center>" . $row['Cod_Fiscale'] . "</td>";
+	    	$dataConvert = date_create($row['Data_Nascita']);
+            $dataEurope = date_format($dataConvert ,'d/m/Y');
+	    	echo "<td style='border-bottom: 1px solid #000000' align='center'>" . "<center>" . $dataEurope . "</td>";
+	    	echo "<td style='border-bottom: 1px solid #000000' align='center'>" . "<center>" . $row['OrePCTO'] . "</td>";     
+	    	
+	    	$dataConvert = date_create($row['DataEsame']);
+            $dataEurope = date_format($dataConvert ,'d/m/Y');
+
+	        if($row['DataEsame']!=NULL)
+	        {
+	        	$risp = 'SI';
+	        }
+	        else
+	        {
+	        	$risp = 'NO';
+	        }
+
+	    	echo "<td style='border-bottom: 1px solid #000000' align='center'>" . "<center>" . $risp . "</td>";
+
+	    	echo "</tr>"; 
+	    }
+	    echo "</table>";
+
+	    $result->free();
+	    $mysqli->close();
+	?> 
+</div>
+</body>
+</html>
