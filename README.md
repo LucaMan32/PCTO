@@ -29,3 +29,5 @@ Dettagli:
     ottimizzazione e aggiunta dei controlli relativi alle email e ad altri campi
     
     Note: in fase di Sign Up nella password la prima lettera deve essere minuscola seguita da una maiuscola, usare il . come carattere speciale e totale 8 caratteri
+    Note: quando si modifica un elemento stampare nel form i valori se no si devono reinserire ed è scomodo
+    Note: riguardare tutti i div per vedere se sono stati aperti e chiusi correttamente
