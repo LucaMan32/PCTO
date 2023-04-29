@@ -27,3 +27,5 @@ Dettagli:
         aggiunta di commenti
     miglioramento parte grafica
     ottimizzazione e aggiunta dei controlli relativi alle email e ad altri campi
+    
+    Note: in fase di Sign Up nella password la prima lettera deve essere minuscola seguita da una maiuscola, usare il . come carattere speciale e totale 8 caratteri
